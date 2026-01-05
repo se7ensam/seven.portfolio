@@ -2,6 +2,7 @@ export const themes = {
     // 1. Classic Dark
     dark: {
         name: 'Minimal Dark',
+        type: 'dark',
         colors: {
             '--bg-primary': '#0a0a0a',
             '--bg-secondary': '#000000',
@@ -17,6 +18,7 @@ export const themes = {
     // 2. Classic Light
     light: {
         name: 'Clean Light',
+        type: 'light',
         colors: {
             '--bg-primary': '#ffffff',
             '--bg-secondary': '#f4f4f4',
@@ -32,6 +34,7 @@ export const themes = {
     // 3. Cyberpunk
     cyberpunk: {
         name: 'Cyberpunk',
+        type: 'dark',
         colors: {
             '--bg-primary': '#0b0c15',
             '--bg-secondary': '#161826',
@@ -47,6 +50,7 @@ export const themes = {
     // 4. Deep Forest
     forest: {
         name: 'Deep Forest',
+        type: 'dark',
         colors: {
             '--bg-primary': '#0f1c15',
             '--bg-secondary': '#040d08',
@@ -62,6 +66,7 @@ export const themes = {
     // 5. Abyss
     ocean: {
         name: 'Abyss',
+        type: 'dark',
         colors: {
             '--bg-primary': '#041c2c',
             '--bg-secondary': '#020e18',
@@ -77,6 +82,7 @@ export const themes = {
     // 6. Dusk
     sunset: {
         name: 'Dusk',
+        type: 'dark',
         colors: {
             '--bg-primary': '#2d1b2e',
             '--bg-secondary': '#1a0f1b',
@@ -92,6 +98,7 @@ export const themes = {
     // 7. Dracula
     dracula: {
         name: 'Dracula',
+        type: 'dark',
         colors: {
             '--bg-primary': '#282a36',
             '--bg-secondary': '#1e1f29',
@@ -107,6 +114,7 @@ export const themes = {
     // 8. Nord
     nord: {
         name: 'Nord',
+        type: 'dark',
         colors: {
             '--bg-primary': '#2e3440',
             '--bg-secondary': '#242933',
@@ -122,6 +130,7 @@ export const themes = {
     // 9. Monokai
     monokai: {
         name: 'Monokai',
+        type: 'dark',
         colors: {
             '--bg-primary': '#272822',
             '--bg-secondary': '#1e1f1c',
@@ -137,6 +146,7 @@ export const themes = {
     // 10. Coffee
     coffee: {
         name: 'Espresso',
+        type: 'dark',
         colors: {
             '--bg-primary': '#2b211e',
             '--bg-secondary': '#201816',
@@ -152,6 +162,7 @@ export const themes = {
     // 11. Slate
     slate: {
         name: 'Slate',
+        type: 'dark',
         colors: {
             '--bg-primary': '#1e293b',
             '--bg-secondary': '#0f172a',
@@ -167,6 +178,7 @@ export const themes = {
     // 12. Terminal (Matrix)
     terminal: {
         name: 'Terminal',
+        type: 'dark',
         colors: {
             '--bg-primary': '#000000',
             '--bg-secondary': '#0d110d',
@@ -182,6 +194,7 @@ export const themes = {
     // 13. Synthwave
     synthwave: {
         name: 'Synthwave',
+        type: 'dark',
         colors: {
             '--bg-primary': '#2b213a',
             '--bg-secondary': '#1e1629',
@@ -197,6 +210,7 @@ export const themes = {
     // 14. Solarized Dark
     solarizedDark: {
         name: 'Solarized Dark',
+        type: 'dark',
         colors: {
             '--bg-primary': '#002b36',
             '--bg-secondary': '#073642',
@@ -212,6 +226,7 @@ export const themes = {
     // 15. Solarized Light
     solarizedLight: {
         name: 'Solarized Light',
+        type: 'light',
         colors: {
             '--bg-primary': '#fdf6e3',
             '--bg-secondary': '#eee8d5',
@@ -227,6 +242,7 @@ export const themes = {
     // 16. Cherry
     cherry: {
         name: 'Cherry',
+        type: 'dark',
         colors: {
             '--bg-primary': '#2b0a1a',
             '--bg-secondary': '#1a040f',
@@ -242,6 +258,7 @@ export const themes = {
     // 17. Lavender
     lavender: {
         name: 'Lavender',
+        type: 'light',
         colors: {
             '--bg-primary': '#f3f0ff',
             '--bg-secondary': '#e9e6fd',
@@ -257,6 +274,7 @@ export const themes = {
     // 18. Gruvbox
     gruvbox: {
         name: 'Gruvbox',
+        type: 'dark',
         colors: {
             '--bg-primary': '#282828',
             '--bg-secondary': '#1d2021',
@@ -272,6 +290,7 @@ export const themes = {
     // 19. Mint
     mint: {
         name: 'Fresh Mint',
+        type: 'dark',
         colors: {
             '--bg-primary': '#0f291e',
             '--bg-secondary': '#071711',
@@ -287,6 +306,7 @@ export const themes = {
     // 20. Royal
     royal: {
         name: 'Royal',
+        type: 'dark',
         colors: {
             '--bg-primary': '#191c29',
             '--bg-secondary': '#11131c',

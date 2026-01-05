@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaDice } from 'react-icons/fa';
 import { themes } from '../data/themes';
+import ThreeDice from './ThreeDice';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -78,16 +78,19 @@ const Navbar = () => {
                         </a>
                     ))}
 
-                    <button
+                    <ThreeDice
                         onClick={randomizeTheme}
-                        className="theme-toggle"
-                        aria-label="Randomize Theme"
-                        title={`Current: ${themes[currentTheme]?.name}`}
-                    >
-                        <FaDice />
-                    </button>
-
-
+                        bodyColor={
+                            themes[currentTheme]?.type === 'light'
+                                ? themes[currentTheme]?.colors?.['--bg-primary']
+                                : themes[currentTheme]?.colors?.['--text-primary'] || '#fafafa'
+                        }
+                        dotColor={
+                            themes[currentTheme]?.type === 'light'
+                                ? themes[currentTheme]?.colors?.['--text-primary']
+                                : themes[currentTheme]?.colors?.['--bg-primary'] || '#111'
+                        }
+                    />
                 </div>
 
                 <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
