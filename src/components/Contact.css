@@ -1,0 +1,33 @@
+.contact-section {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 50px;
+    /* Space for footer */
+}
+
+.contact-description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+}
+
+.contact-btn {
+    font-size: 1rem;
+    padding: 1.25rem 1.75rem;
+}
+
+.footer {
+    margin-top: 100px;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+}
+
+.footer:hover {
+    color: var(--primary);
+}

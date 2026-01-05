@@ -1,0 +1,130 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-medium);
+    background: var(--bg-primary);
+    /* Solid background */
+    border-bottom: 1px solid transparent;
+}
+
+.navbar.scrolled {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    height: 70px;
+    box-shadow: none;
+    /* No shadow */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    /* Smaller logo */
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.logo span {
+    display: none;
+    /* Remove dot accent */
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a:not(.btn) {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    /* Muted links */
+    display: flex;
+    gap: 5px;
+}
+
+.nav-links a:not(.btn):hover {
+    color: var(--text-primary);
+}
+
+.nav-number {
+    display: none;
+    /* Remove numbering */
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    color: var(--text-primary);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 70vw;
+        background: var(--bg-secondary);
+        flex-direction: column;
+        justify-content: center;
+        transform: translateX(100%);
+        transition: transform var(--transition-medium);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .line {
+        width: 25px;
+        height: 2px;
+        background-color: var(--text-primary);
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+    /* Hamburger Animation */
+    .line.open:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .line.open:nth-child(2) {
+        opacity: 0;
+    }
+
+    .line.open:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}
