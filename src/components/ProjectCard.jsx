@@ -1,12 +1,11 @@
 import React from 'react';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import './ProjectCard.css';
 
 const ProjectCard = ({ project }) => {
     return (
         <div className="project-card">
             <div className="project-image">
-                <img src={project.image} alt={project.title} />
+                <img src={project.image} alt={project.title} loading="lazy" />
             </div>
             <div className="project-content">
                 <div className="project-header">

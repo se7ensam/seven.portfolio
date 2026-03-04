@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { themes } from '../data/themes';
-import ThreeDice from './ThreeDice';
 import './Navbar.css';
+
+const ThreeDice = lazy(() => import('./ThreeDice'));
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -21,16 +22,18 @@ const Navbar = () => {
         localStorage.setItem('theme', themeKey);
     };
 
-    useEffect(() => {
-        const handleScroll = () => {
+    const scrollTick = useRef(false);
+    const handleScroll = useCallback(() => {
+        if (scrollTick.current) return;
+        scrollTick.current = true;
+        requestAnimationFrame(() => {
             const offset = window.scrollY;
-            if (offset > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
+            setScrolled(offset > 50);
+            scrollTick.current = false;
+        });
+    }, []);
 
+    useEffect(() => {
         // Initialize theme
         const savedTheme = localStorage.getItem('theme') || 'dark';
         if (themes[savedTheme]) {
@@ -39,11 +42,9 @@ const Navbar = () => {
             applyTheme('dark');
         }
 
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [handleScroll]);
 
     const randomizeTheme = () => {
         const themeKeys = Object.keys(themes);
@@ -78,19 +79,21 @@ const Navbar = () => {
                         </a>
                     ))}
 
-                    <ThreeDice
-                        onClick={randomizeTheme}
-                        bodyColor={
-                            themes[currentTheme]?.type === 'light'
-                                ? themes[currentTheme]?.colors?.['--bg-primary']
-                                : themes[currentTheme]?.colors?.['--text-primary'] || '#fafafa'
-                        }
-                        dotColor={
-                            themes[currentTheme]?.type === 'light'
-                                ? themes[currentTheme]?.colors?.['--text-primary']
-                                : themes[currentTheme]?.colors?.['--bg-primary'] || '#111'
-                        }
-                    />
+                    <Suspense fallback={<span className="dice-fallback" title="Roll for Theme">🎲</span>}>
+                        <ThreeDice
+                            onClick={randomizeTheme}
+                            bodyColor={
+                                themes[currentTheme]?.type === 'light'
+                                    ? themes[currentTheme]?.colors?.['--bg-primary']
+                                    : themes[currentTheme]?.colors?.['--text-primary'] || '#fafafa'
+                            }
+                            dotColor={
+                                themes[currentTheme]?.type === 'light'
+                                    ? themes[currentTheme]?.colors?.['--text-primary']
+                                    : themes[currentTheme]?.colors?.['--bg-primary'] || '#111'
+                            }
+                        />
+                    </Suspense>
                 </div>
 
                 <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
