@@ -55,15 +55,16 @@ const Dice = ({ position, onRoll, rollTrigger, delayOffset = 0, bodyColor, dotCo
     const mesh = useRef();
     const [targetRotation, setTargetRotation] = useState(new THREE.Euler(Math.random() * Math.PI, Math.random() * Math.PI, 0));
 
-    // Listen for roll trigger from parent
+    // Listen for roll trigger from parent (functional update avoids stale closure)
     useEffect(() => {
-        if (rollTrigger === 0) return; // Skip initial mount if desired, or let it stay random
+        if (rollTrigger === 0) return;
 
         const extraIter = (Math.PI * 2) * (2 + Math.floor(Math.random() * 2));
-        const x = targetRotation.x + extraIter + (Math.random() * Math.PI);
-        const y = targetRotation.y + extraIter + (Math.random() * Math.PI);
-        const z = targetRotation.z + extraIter + (Math.random() * Math.PI);
-        setTargetRotation(new THREE.Euler(x, y, z));
+        setTargetRotation((prev) => new THREE.Euler(
+            prev.x + extraIter + (Math.random() * Math.PI),
+            prev.y + extraIter + (Math.random() * Math.PI),
+            prev.z + extraIter + (Math.random() * Math.PI),
+        ));
     }, [rollTrigger]);
 
     const handleClick = (e) => {

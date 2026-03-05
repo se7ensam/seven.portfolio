@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: './', // Ensures relative paths for GitHub Pages deployment
   build: {
+    chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
         manualChunks: {

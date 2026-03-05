@@ -1,15 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
 import { themes } from '../data/themes';
 import './Navbar.css';
 
 const ThreeDice = lazy(() => import('./ThreeDice'));
+
+const NAV_LINKS = [
+    { name: 'About', href: '#about' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Contact', href: '#contact' },
+];
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [currentTheme, setCurrentTheme] = useState('dark');
 
-    const applyTheme = (themeKey) => {
+    const applyTheme = useCallback((themeKey) => {
         const theme = themes[themeKey];
         if (!theme) return;
 
@@ -20,7 +26,7 @@ const Navbar = () => {
 
         setCurrentTheme(themeKey);
         localStorage.setItem('theme', themeKey);
-    };
+    }, []);
 
     const scrollTick = useRef(false);
     const handleScroll = useCallback(() => {
@@ -34,7 +40,6 @@ const Navbar = () => {
     }, []);
 
     useEffect(() => {
-        // Initialize theme
         const savedTheme = localStorage.getItem('theme') || 'dark';
         if (themes[savedTheme]) {
             applyTheme(savedTheme);
@@ -44,21 +49,23 @@ const Navbar = () => {
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+    }, [applyTheme, handleScroll]);
 
-    const randomizeTheme = () => {
+    const randomizeTheme = useCallback(() => {
         const themeKeys = Object.keys(themes);
-        // Filter out current theme to ensure change
         const availableThemes = themeKeys.filter(key => key !== currentTheme);
         const randomKey = availableThemes[Math.floor(Math.random() * availableThemes.length)];
         applyTheme(randomKey);
-    };
+    }, [currentTheme, applyTheme]);
 
-    const navLinks = [
-        { name: 'About', href: '#about' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Contact', href: '#contact' },
-    ];
+    const diceColors = useMemo(() => {
+        const theme = themes[currentTheme];
+        const isLight = theme?.type === 'light';
+        return {
+            bodyColor: isLight ? theme?.colors?.['--bg-primary'] : theme?.colors?.['--text-primary'] || '#fafafa',
+            dotColor: isLight ? theme?.colors?.['--text-primary'] : theme?.colors?.['--bg-primary'] || '#111',
+        };
+    }, [currentTheme]);
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -68,13 +75,13 @@ const Navbar = () => {
                 </a>
 
                 <div className={`nav-links ${isOpen ? 'active' : ''}`}>
-                    {navLinks.map((link) => (
+                    {NAV_LINKS.map((link, index) => (
                         <a
                             key={link.name}
                             href={link.href}
                             onClick={() => setIsOpen(false)}
                         >
-                            <span className="nav-number">0{navLinks.indexOf(link) + 1}.</span>
+                            <span className="nav-number">0{index + 1}.</span>
                             {link.name}
                         </a>
                     ))}
@@ -82,16 +89,8 @@ const Navbar = () => {
                     <Suspense fallback={<span className="dice-fallback" title="Roll for Theme">🎲</span>}>
                         <ThreeDice
                             onClick={randomizeTheme}
-                            bodyColor={
-                                themes[currentTheme]?.type === 'light'
-                                    ? themes[currentTheme]?.colors?.['--bg-primary']
-                                    : themes[currentTheme]?.colors?.['--text-primary'] || '#fafafa'
-                            }
-                            dotColor={
-                                themes[currentTheme]?.type === 'light'
-                                    ? themes[currentTheme]?.colors?.['--text-primary']
-                                    : themes[currentTheme]?.colors?.['--bg-primary'] || '#111'
-                            }
+                            bodyColor={diceColors.bodyColor}
+                            dotColor={diceColors.dotColor}
                         />
                     </Suspense>
                 </div>

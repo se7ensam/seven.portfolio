@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
 import './App.css';
+
+const Projects = lazy(() => import('./components/Projects'));
+const Contact = lazy(() => import('./components/Contact'));
 
 function App() {
   return (
@@ -11,8 +12,10 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Projects />
-        <Contact />
+        <Suspense fallback={null}>
+          <Projects />
+          <Contact />
+        </Suspense>
       </main>
     </div>
   );

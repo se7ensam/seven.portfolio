@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './ProjectCard.css';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = memo(function ProjectCard({ project }) {
     return (
         <div className="project-card">
             <div className="project-image">
@@ -25,6 +25,6 @@ const ProjectCard = ({ project }) => {
             </div>
         </div>
     );
-};
+});
 
 export default ProjectCard;
