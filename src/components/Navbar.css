@@ -8,9 +8,9 @@
     display: flex;
     align-items: center;
     transition: all var(--transition-medium);
-    background: var(--bg-primary);
-    /* Solid background */
+    background: rgba(5, 5, 5, 0.9);
     border-bottom: 1px solid transparent;
+    backdrop-filter: blur(16px);
 }
 
 .navbar.scrolled {
@@ -48,8 +48,8 @@
 }
 
 .logo span {
-    display: none;
-    /* Remove dot accent */
+    display: inline-block;
+    color: var(--text-secondary);
 }
 
 .nav-links {

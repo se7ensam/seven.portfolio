@@ -60,6 +60,10 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.04), transparent 55%),
+    var(--bg-primary);
 }
 
 a {
@@ -121,8 +125,7 @@ ul {
 
 .btn {
   padding: 12px 28px;
-  border-radius: 0;
-  /* Sharp edges */
+  border-radius: 999px;
   font-weight: 400;
   font-family: var(--font-body);
   transition: all var(--transition-medium);
@@ -141,9 +144,8 @@ ul {
 .btn-primary:hover {
   background: transparent;
   color: var(--text-primary);
-  transform: none;
-  /* No movement */
-  box-shadow: none;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .btn-secondary {

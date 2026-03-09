@@ -1,17 +1,17 @@
 .project-card {
-    background-color: transparent;
-    border-radius: 0;
+    background-color: var(--bg-card);
+    border-radius: 18px;
     overflow: hidden;
-    transition: border-color var(--transition-medium);
-    border: 1px solid var(--border-color);
+    transition: border-color var(--transition-medium), box-shadow var(--transition-medium), transform var(--transition-medium);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     display: flex;
     flex-direction: column;
 }
 
 .project-card:hover {
-    transform: none;
-    box-shadow: none;
-    border-color: var(--text-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+    border-color: var(--border-hover);
 }
 
 .project-image {
@@ -28,8 +28,8 @@
     height: 100%;
     object-fit: cover;
     transition: opacity var(--transition-medium);
-    opacity: 0.8;
-    filter: grayscale(100%);
+    opacity: 0.9;
+    filter: grayscale(100%) contrast(1.05);
 }
 
 .project-card:hover .project-image img {
@@ -94,7 +94,8 @@
 
 .project-tech-list li {
     margin-bottom: 0;
-    padding: 2px 0;
-    border-bottom: 1px solid transparent;
-    /* subtle underline on hover? */
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
 }
