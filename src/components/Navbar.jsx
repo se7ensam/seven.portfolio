@@ -10,10 +10,13 @@ const NAV_LINKS = [
     { name: 'Contact', href: '#contact' },
 ];
 
+const FEATURED_THEMES = ['dark', 'light', 'nord', 'ocean', 'dracula', 'terminal'];
+
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [currentTheme, setCurrentTheme] = useState('dark');
+    const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
 
     const applyTheme = useCallback((themeKey) => {
         const theme = themes[themeKey];
@@ -67,6 +70,13 @@ const Navbar = () => {
         };
     }, [currentTheme]);
 
+    const currentThemeName = themes[currentTheme]?.name || 'Custom';
+
+    const handleSelectTheme = useCallback((key) => {
+        applyTheme(key);
+        setIsThemeMenuOpen(false);
+    }, [applyTheme]);
+
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container nav-container">
@@ -86,13 +96,64 @@ const Navbar = () => {
                         </a>
                     ))}
 
-                    <Suspense fallback={<span className="dice-fallback" title="Roll for Theme">🎲</span>}>
-                        <ThreeDice
-                            onClick={randomizeTheme}
-                            bodyColor={diceColors.bodyColor}
-                            dotColor={diceColors.dotColor}
-                        />
-                    </Suspense>
+                    <div className="theme-controls">
+                        <button
+                            type="button"
+                            className="theme-toggle"
+                            onClick={() => setIsThemeMenuOpen((open) => !open)}
+                            aria-haspopup="true"
+                            aria-expanded={isThemeMenuOpen}
+                        >
+                            <span className="theme-toggle-label">Theme</span>
+                            <span className="theme-toggle-current">{currentThemeName}</span>
+                        </button>
+
+                        {isThemeMenuOpen && (
+                            <div className="theme-menu" role="menu">
+                                {FEATURED_THEMES.map((key) => {
+                                    const theme = themes[key];
+                                    if (!theme) return null;
+                                    const primary = theme.colors['--primary'];
+                                    const bg = theme.colors['--bg-primary'];
+                                    return (
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            className={`theme-swatch ${key === currentTheme ? 'active' : ''}`}
+                                            onClick={() => handleSelectTheme(key)}
+                                            role="menuitem"
+                                        >
+                                            <span
+                                                className="theme-swatch-dot"
+                                                style={{ background: primary, boxShadow: `0 0 0 2px ${bg}` }}
+                                            />
+                                            <span className="theme-swatch-name">{theme.name}</span>
+                                        </button>
+                                    );
+                                })}
+                                <button
+                                    type="button"
+                                    className="theme-swatch theme-swatch-random"
+                                    onClick={() => {
+                                        randomizeTheme();
+                                        setIsThemeMenuOpen(false);
+                                    }}
+                                    role="menuitem"
+                                >
+                                    <span className="theme-swatch-dot theme-swatch-dot-random">🎲</span>
+                                    <span className="theme-swatch-name">Surprise me</span>
+                                </button>
+                            </div>
+                        )}
+
+                        <Suspense fallback={<span className="dice-fallback" title="Roll for Theme">🎲</span>}>
+                            <ThreeDice
+                                onClick={randomizeTheme}
+                                bodyColor={diceColors.bodyColor}
+                                dotColor={diceColors.dotColor}
+                            />
+                        </Suspense>
+                    </div>
                 </div>
 
                 <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
